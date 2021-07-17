@@ -1,0 +1,24 @@
+{
+	"name": "template-engine",
+	"version": "1.0.0",
+	"description": "HTML template engine.",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"engines": {
+		"node": ">= 14.15.5"
+	},
+	"files": [
+		"LICENSE",
+		"README.md",
+		"index.js"
+	],
+	"homepage": "https://github.com/oscar0urselli/template-engine/blob/master/README.md",
+	"author": {
+		"name": "Oscar Urselli",
+		"email": "urselli.oscar@gmail.com",
+		"url": "https://github.com/oscar0urselli/"
+	},
+	"license": "MIT"
+}

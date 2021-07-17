@@ -1,0 +1,23 @@
+{
+	"name": "http-code-page",
+	"version": "1.0.0",
+	"description": "Creation of HTML page based on the HTTP status code passed.",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"engines": {
+		"node": ">= 14.15.5"
+	},
+	"files": [
+		"index.js",
+		"LICENSE"
+	],
+	"homepage": "",
+	"author": {
+		"name": "Oscar Urselli",
+		"email": "urselli.oscar@gmail.com",
+		"url": "https://github.com/oscar0urselli/"
+	},
+	"license": "MIT"
+}

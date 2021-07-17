@@ -1,0 +1,15 @@
+{
+  "name": "web-server",
+  "version": "0.0.1",
+  "description": "Easy to set up and use web server.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Oscar Urselli",
+  "license": "ISC",
+  "dependencies": {
+    "formidable": "^1.2.2",
+    "mysql": "^2.18.1"
+  }
+}

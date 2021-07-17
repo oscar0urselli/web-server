@@ -1,0 +1,23 @@
+{
+	"name": "db-manager",
+	"version": "1.0.0",
+	"description": "Easy to use connectors with various databse. Supported: MySQL",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"engines": {
+		"node": ">= 14.15.5"
+	},
+	"files": [
+		"index.js",
+		"LICENSE"
+	],
+	"homepage": "",
+	"author": {
+		"name": "Oscar Urselli",
+		"email": "urselli.oscar@gmail.com",
+		"url": "https://github.com/oscar0urselli/"
+	},
+	"license": "MIT"
+}
