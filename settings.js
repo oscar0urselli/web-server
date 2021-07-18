@@ -7,12 +7,12 @@ exports.PORT = 8000;
  * For each database a connection will be instanced.
  */
 exports.MySQLConfig = [
-    {
+    /*{
         host: 'localhost',
         user: 'root',
         password: 'password',
         database: 'db_name'
-    },
+    },*/
 ];
 
 /**
@@ -41,5 +41,6 @@ exports.UploadPaths = {
 exports.ROUTES = {
     'homepage': 'main.html',
     '': 'main.html',
+    'ciao': 'ciao.html'
     // other section
 };

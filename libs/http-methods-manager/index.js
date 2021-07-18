@@ -13,11 +13,12 @@ const settings = require('./../../settings');
  * Function to handle HTTP requests with GET method.
  * @param {http.ClientRequest} req - The request received.
  * @param {http.ServerResponse} res - The response used to answer the request.
+ * @param {string} directory - A string containing the base direcotry where is located the folder www.
  * @param {object} routes - An object containing the basic routes.
  * @param {fm.StaticFiles[]} static - An array containing all the StaticFiles object.
  * @param {te.TemplateEngine} template - A TemplateEngine object containing all the created template.
  */
-exports.GET = function GET(req, res, routes, static, template) {
+exports.GET = function GET(req, res, directory, routes, static, template) {
     let reqURL = new URL(req.url, `http://${settings.HOST}:${settings.PORT}`).pathname;
     let dirs = reqURL.split('/');
     dirs.shift();
@@ -42,7 +43,7 @@ exports.GET = function GET(req, res, routes, static, template) {
 
         for (let folder of static) {
             let data = folder.get(routes);
-            if (data !== undefined) {
+            if (data !== null) {
                 res.setHeader('Content-Type', mime);
                 res.writeHead(200);
                 res.end(data);
@@ -50,7 +51,7 @@ exports.GET = function GET(req, res, routes, static, template) {
             }
         }
 
-        fs.readFile(__dirname + '/www/web/' + routes, (err, data) => {
+        fs.readFile(directory + '/www/web/' + routes, (err, data) => {
             if (err) {
                 console.log(err);
                 hcp.page({res: res, httpCode: 500, httpMsg: 'Internal Server Error', bodyMsg: 'An unexpected error occurred while sending a response.', style: ''});
@@ -85,7 +86,7 @@ exports.GET = function GET(req, res, routes, static, template) {
             }
         }
         
-        fs.readFile(__dirname + '/www/web' + reqURL, (err, data) => {
+        fs.readFile(directory + '/www/web' + reqURL, (err, data) => {
             if (err) {
                 console.log(err);
                 hcp.page({res: res, httpCode: 500, httpMsg: 'Internal Server Error', bodyMsg: 'An unexpected error occurred while sending a response.', style: ''});
@@ -103,9 +104,10 @@ exports.GET = function GET(req, res, routes, static, template) {
  * Function to handle HTTP requests with GET method.
  * @param {http.ClientRequest} req - The request received.
  * @param {http.ServerResponse} res - The response used to answer the request.
+ * @param {string} directory - A string containing the base direcotry where is located the folder www.
  * @param {object} uploadPaths - An object containing the paths used to store the files uploaded based on their extension.
  */
-exports.POST = function POST(req, res, uploadPaths) {
+exports.POST = function POST(req, res, directory, uploadPaths) {
     let reqURL = new URL(req.url, `http://${settings.HOST}:${settings.PORT}`).pathname;
     let mime = req.headers['content-type'].split(';')[0];
 
@@ -134,7 +136,7 @@ exports.POST = function POST(req, res, uploadPaths) {
                 let filename = file.Image.path.split('\\').pop();
                 let ext = file.Image.name.split('.').pop();
                 let oldpath = file.Image.path;
-                let newpath = __dirname + uploadPaths[ext] + filename + '.' + ext;
+                let newpath = directory + uploadPaths[ext] + filename + '.' + ext;
                 
                 fs.rename(oldpath, newpath, (err) => {
                     if (err) {

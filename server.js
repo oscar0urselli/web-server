@@ -38,10 +38,10 @@ const requestListener = function (req, res) {
     console.log(url, method);
 
     if (method === 'GET') {
-        hmm.GET(req, res, settings.ROUTES, static, template);
+        hmm.GET(req, res, __dirname, settings.ROUTES, static, template);
     }
     else if (method === 'POST') {
-        hmm.POST(req, res, settings.UploadPaths);
+        hmm.POST(req, res, __dirname, settings.UploadPaths);
     }
     else {
         hcp.page({res: res, httpCode: 400, httpMsg: 'Bad Request', bodyMsg: 'The request method is invalid.', style: ''});

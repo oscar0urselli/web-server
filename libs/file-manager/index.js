@@ -31,6 +31,7 @@ exports.StaticFiles = class {
             throw 'Type Error: the parameter "extensions" need to be an array of strings or [].';
         }
 
+        this.#isAllowed = isAllowed;
         this.#staticFiles = new Map();
         this.load();
     }
@@ -132,9 +133,8 @@ exports.StaticFiles = class {
     load() {
         this.#staticFiles.clear();
         fs.readdirSync(this.#directory).forEach(file => {
-            if (!fs.lstatSync(this.#directory + file).isDirectory()) {
+            if (fs.statSync(this.#directory + file).isFile()) {
                 let isConsidered = this.#extensions.includes(file.split('.').pop());
-
                 if ((isConsidered && this.#isAllowed) || (!isConsidered && !this.#isAllowed) || (this.#extensions == false && this.#isAllowed)) {
                     this.#staticFiles.set(file, fs.readFileSync(this.#directory + file, (err, data) => {
                         if (err) {
