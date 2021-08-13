@@ -1,5 +1,11 @@
 const mysql = require('mysql');
 
+/////////////////// MYSQL MYSQL MYSQL MYSQL MYSQL MYSQL MYSQL MYSQL MYSQL MYSQL MYSQL MYSQL MYSQL MYSQL MYSQL ///////////////////
+/////////////////// MYSQL MYSQL MYSQL MYSQL MYSQL MYSQL MYSQL MYSQL MYSQL MYSQL MYSQL MYSQL MYSQL MYSQL MYSQL ///////////////////
+/////////////////// MYSQL MYSQL MYSQL MYSQL MYSQL MYSQL MYSQL MYSQL MYSQL MYSQL MYSQL MYSQL MYSQL MYSQL MYSQL ///////////////////
+/////////////////// MYSQL MYSQL MYSQL MYSQL MYSQL MYSQL MYSQL MYSQL MYSQL MYSQL MYSQL MYSQL MYSQL MYSQL MYSQL ///////////////////
+/////////////////// MYSQL MYSQL MYSQL MYSQL MYSQL MYSQL MYSQL MYSQL MYSQL MYSQL MYSQL MYSQL MYSQL MYSQL MYSQL ///////////////////
+/////////////////// MYSQL MYSQL MYSQL MYSQL MYSQL MYSQL MYSQL MYSQL MYSQL MYSQL MYSQL MYSQL MYSQL MYSQL MYSQL ///////////////////
 /** 
  * Represents the connection with a MySQL db.
  * @param {object} config - An object containing host, user, password and database.
@@ -121,7 +127,7 @@ exports.MySQL_DB = class MySQL_DB {
      * Select and get on or more elements from a cerain table. 
      * @param {string} table - A string containing the name of the table.
      * @param {object} where - An object containing a series of item with an associated value used to query the the elements.
-     * @returns {object[]} A list of objects where every object contain an series of key: value, where the key is the name of the column and the value the record.
+     * @returns {object[]} A list of objects where every object contain a series of key: value, where the key is the name of the column and the value the record.
      */
     select(table, where = {}) {
         return new Promise((resolve, reject) => {
@@ -137,6 +143,39 @@ exports.MySQL_DB = class MySQL_DB {
             this.#connection.query(sql, data, (err, results, fields) => {
                 if (err) {
                     this.#error(err, `Error while performing a select action:\nACTION - ${sql}`);
+                    reject(err);
+                }
+
+                resolve(results);
+            });
+        });
+    }
+
+    /**
+     * Delete from the table all the rows that respect the passed parameters.
+     * @param {string} table - A string containing the name of the table.
+     * @param {object} where - An object containing a series of item with an associated value used to query the the elements.
+     * @param {number} rowLimit - An integer containing the numbers of row to delete, default value is null. If null, undefined, 0 or anything different from a natural number is passed all the matching rows of the query will be removed.
+     * @returns {mysql.OkPacket} An object containing infos about the query executed.
+     */
+    delete(table, where = {}, rowLimit = null) {
+        return new Promise((resolve, reject) => {
+            let sql = `DELETE FROM ${table} WHERE `;
+            let data = [];
+
+            for (const [key, value] of Object.entries(where)) {
+                sql += this.#connection.escapeId(key) + '=?, ';
+                data.push(value);
+            }
+            sql = sql.slice(0, sql.length - 2);
+            
+            if (Number.isInteger(rowLimit) && rowLimit > 0) {
+                sql += ` LIMIT ${rowLimit}`;
+            }
+
+            this.#connection.query(sql, data, (err, results, fields) => {
+                if (err) {
+                    this.#error(err, `Error while performing a delete action:\nACTION - ${sql}`);
                     reject(err);
                 }
 
@@ -166,3 +205,6 @@ exports.MySQL_DB = class MySQL_DB {
         }
     }
 }
+
+
+/////////////////// OTHERDB OTHERDB OTHERDB OTHERDB OTHERDB OTHERDB OTHERDB OTHERDB OTHERDB OTHERDB OTHERDB ///////////////////

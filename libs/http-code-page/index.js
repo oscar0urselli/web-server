@@ -1,3 +1,5 @@
+const settings = require('./../../settings');
+
 /**
  * Given the HTTP status code it will create an HTML poge representing that code.
  * @param {object} params - An object containing the following properties:
@@ -27,7 +29,7 @@ exports.page = function page(params) {
     }
 
     let resPage = `<!DOCTYPE html><html lang="en"><head>` +
-    `<title>Oscar's Web Server | ${params.httpCode} ${params.httpMsg}</title>` +
+    `<title>${settings.SITENAME} | ${params.httpCode} ${params.httpMsg}</title>` +
     `<link rel="stylesheet" href="${params.style}"></head>` +
     `<body style="background-color: #${params.rgbBg};">` +
     `<div class="center" style="color: white;"><h1>${params.httpCode}!</h1>` +

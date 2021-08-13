@@ -9,6 +9,7 @@
   "author": "Oscar Urselli",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^10.0.0",
     "formidable": "^1.2.2",
     "mysql": "^2.18.1"
   }
